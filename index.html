@@ -11,20 +11,51 @@
     <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script defer src="./src/index.js"></script>
 </head>
-<body>
+    <body>
     <header id="weather-report"><h1>Weather Report (city)</h1></header>
     <main>
         <section id="doll-section">
-            <section id="top"></section>
-            <section id="botton"></section>
-            <section id="doll"></section>
-            <section id="hat"></section>
-            <section id="shoes"></section>
+            <div id="doll-holder">
+                <div id="left-side">
+                    <section id="top">top</section>
+                    <section id="bottom">bottom</section>
+                </div>
+                <section id="doll">doll</section>
+                <div id="right-side">
+                    <section id="hat">hat</section>
+                    <section id="shoes">shoes</section>
+                </div>
+            </div>
         </section>
-        <section id="info-section">
-            <section id="temperture"></section>
-            <section id="sky"></section>
-            <section id="city"></section>
+<section id="info-section">
+            <section id="temperture" class="info-box">
+                <h2>Temperature</h2>
+                <section class="info">
+                    <!-- <button id="increase-button">increase</button> -->
+                    <div id="slider-bar">
+                        <input type="range" id="temp" name="temperature" max="200"/>
+                        <label for="=temp">70</label>
+                    </div>
+                    <!-- <button id="decrease-button">decrease</button> -->
+                    <button id="realtime-temp">Get Realtime Temperature</button>
+                </section>
+            </section>
+            <section id="sky" class="info-box">
+                <h2>sky</h2>
+                <select id="drop-down-menu">
+                    <option>Sunny</option>
+                    <option>Cloudy</option>
+                    <option>Rainy</option>
+                    <option>Snowy</option>
+                </select>
+            </section>
+            <section id="city" class="info-box">
+                <h2>city</h2>
+                <section class="info">
+                    <input id="city" type="text" value="Seattle">
+                    <button id="reset-button">Reset</button>
+                </section>
+            </section>
         </section>
     </main>
     <footer></footer>
