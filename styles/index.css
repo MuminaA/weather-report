@@ -1,3 +1,16 @@
+/* @import  url('https://www.1001fonts.com/cotton-cloud-font.html')
+
+@font-face {
+  font-family: 'Cotton Cloud';
+  src: url('fonts/CottonCloud.woff2') format('woff2'),
+       url('fonts/CottonCloud.woff') format('woff'),
+       url('fonts/CottonCloud.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} */
+
+
 .first-color { 
 	background: #b9f9ff; 
 }
@@ -13,6 +26,10 @@
 .fourth-color { 
 	background: #f5cd6d;  
  
+}
+
+*{
+    border: 1px black solid;
 }
 
 
@@ -86,7 +103,6 @@ body {
 }
 
 
-
 h1 {
     font-family: 'Cotton Cloud', sans-serif;
 }
@@ -94,7 +110,6 @@ h1 {
 #doll-section {
     border: 1px green solid;
 }
-
 
 
 #info-section {
@@ -121,3 +136,9 @@ h1 {
 #drop-down-menu {
     width: 300px;
 }
+
+
+
+/* https://www.myfonts.com/collections/cloudy-font-happy-type-club?queryId=65b9d1bcb41d4d44243fd81b264434df&index=universal_search_data&objectIDs=MTAzOTI5N180NTc2MjBfMTc1MDQyMTE0OA
+
+https://www.fontspace.com/category/cloudy */
