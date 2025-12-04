@@ -39,7 +39,7 @@ tempSlider.addEventListener('input', (event) => {
 
 const changeBackgroundColor = (event) => {
   if (state.temp >= redTemp) {
-    parentElementDoll.style.backgroundColor = '#ff0000ff';
+    parentElementDoll.style.backgroundColor = '#cb4949ff';
   } else if (state.temp >= orangeTemp){
     parentElementDoll.style.backgroundColor = '#f6a612ff';
   } else if (state.temp >= yellowTemp){
@@ -54,6 +54,8 @@ const changeBackgroundColor = (event) => {
 const updateLandscape = () => {
   if (state.temp >= redTemp) {
     parentElementDoll.appendChild(gifFire);
+    gifFire.style.display = 'block';
+
 // } else if (state.temp >= orangeTemp){
 //     document.getElementById('doll-holder').style.backgroundColor = '#f6a612ff';
 //   } else if (state.temp >= yellowTemp){
