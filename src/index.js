@@ -125,6 +125,13 @@ const formatTemp = () => {
 
 cityName.addEventListener('input', (event)=>{
     cityHeader.textContent = event.target.value;
+    state.city = event.target.value;
     console.log(`${cityName}`);
 
+});
+
+resetButton.addEventListener('click', () => {
+    state.city = 'Seattle';
+    cityHeader.textContent = 'Seattle';
+    cityName.value = 'Seattle';
 });
