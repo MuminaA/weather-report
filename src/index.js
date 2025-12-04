@@ -17,8 +17,9 @@ gifFire.style.height = '450px';
 
 let BASE_URL = 'http://127.0.0.1:5500/';
 
-const convertKtoF = e => 1.8 * (e- 273.15) + 32;
-
+const convertKtoF = e => {
+  return 1.8 * (e - 273.15) + 32;
+};
 
 const state = {
   temp: 70,
@@ -29,6 +30,9 @@ const state = {
   lon: -122.3300624
 };
 
+
+
+/////////temp slider change and background and landscape change///////////////////////
 tempSlider.addEventListener('input', (event) => {
   state.temp = event.target.value;
   state.tempLabel = event.target.value;
@@ -55,8 +59,9 @@ const updateLandscape = () => {
   if (state.temp >= redTemp) {
     parentElementDoll.appendChild(gifFire);
     gifFire.style.display = 'block';
-
-// } else if (state.temp >= orangeTemp){
+  } else if (state.temp >= orangeTemp){
+    parentElementDoll.removeChild(gifFire);
+    parentElementDoll.appendChild()
 //     document.getElementById('doll-holder').style.backgroundColor = '#f6a612ff';
 //   } else if (state.temp >= yellowTemp){
 //     document.getElementById('doll-holder').style.backgroundColor = '#d7b16aff';
@@ -68,7 +73,7 @@ const updateLandscape = () => {
 }
 }
 
-
+////////get real time temp from lat and lon///////////////////////
 const findLatAndLon = () => {
     axios.get(BASE_URL + '/location'), {
         params: {
@@ -110,18 +115,8 @@ const formatTemp = () => {
     e.textContent = String(state.temp);
 };
 
-// const cityNameUpdate = () => {
-//     let e = cityName.value;
-//     let t =  cityHeader;
-    
-//     state.city = e
-//     t.textContent = state.city
-// }
 
-// cityName.addEventListener("input", () => {
-//     cityNameUpdate();
-// })
-
+///////////////////////////////city name change and reset button///////////////////////
 
 cityName.addEventListener('input', (event)=>{
     cityHeader.textContent = event.target.value;
@@ -133,3 +128,5 @@ resetButton.addEventListener('click', () => {
     cityHeader.textContent = 'Seattle';
     cityName.value = 'Seattle';
 });
+
+////////////////////////////////
