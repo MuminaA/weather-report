@@ -106,23 +106,25 @@ realTempButton.addEventListener('click', () => {
 
 const formatTemp = () => {
     let e = state.temp;
-    e. document.getElem
-    e.textContent = String(state.temp)entById('realtime-temp');
+    e. document.getElementById('realtime-temp')
+    e.textContent = String(state.temp);
 };
 
-const cityNameUpdate = () => {
-    let e = cityName.value;
-    let t =  cityHeader;
+// const cityNameUpdate = () => {
+//     let e = cityName.value;
+//     let t =  cityHeader;
     
-    state.city = e
-    t.textContent = state.city
-}
+//     state.city = e
+//     t.textContent = state.city
+// }
 
-cityName.addEventListener("input", () => {
-    cityNameUpdate();
-})
+// cityName.addEventListener("input", () => {
+//     cityNameUpdate();
+// })
 
 
-// cityName.addEventListener('input' (event)=>{
-//     cityName.textContent = event.target.value;
-// });
+cityName.addEventListener('input', (event)=>{
+    cityHeader.textContent = event.target.value;
+    console.log(`${cityName}`);
+
+});
