@@ -4,17 +4,18 @@ const tempSlider = document.getElementById('temp');
 const dropDownMenu = document.getElementById('drop-down-menu');
 const tempLabel = document.getElementById('temp-label');
 const cityName = document.getElementById('city');
+const cityHeader = document.getElementById('city-header');
 const redTemp = 80;
 const orangeTemp = 70;
 const yellowTemp = 60;
 const greenTemp = 50;
 const parentElementDoll = document.getElementById('doll');
-const gifFire = document.createElement('gifFire');
-gifFire.scr = '../assets/sunny-98.png';
+const gifFire = document.createElement('img');
+gifFire.src = 'ada-project-docs/assets/fire.gif';
 gifFire.alt = 'A gif image of fire';
-gifFire.style.height = '200px';
+gifFire.style.height = '450px';
 
-let BASE_URL = '';
+let BASE_URL = 'http://127.0.0.1:5500/';
 
 const convertKtoF = e => 1.8 * (e- 273.15) + 32;
 
@@ -32,7 +33,7 @@ tempSlider.addEventListener('input', (event) => {
   state.temp = event.target.value;
   state.tempLabel = event.target.value;
   tempLabel.textContent = event.target.value;
-  //changeBackgroundColor();
+  changeBackgroundColor();
   updateLandscape();
 });
 
@@ -65,39 +66,61 @@ const updateLandscape = () => {
 }
 }
 
+
 const findLatAndLon = () => {
-  axios.get(BASE_URL + '/location'), {
-    params: {
-      q: state.city
-    }
-  }.then(e => (console.log(e.data),
-  state.lat = e.data[0].lat,
-  state.lon = e.data[0].lon,
-  getWeather())).catch(e => {
-    console.log('Error finding the latitude and longitude:', e.response);
-  });
+    axios.get(BASE_URL + '/location'), {
+        params: {
+            q: state.city
+        }
+    }.then(e => (console.log(e.data),
+    state.lat = e.data[0].lat,
+    state.lon = e.data[0].lon,
+    getWeather())).catch(e => {
+        console.log('Error finding the latitude and longitude:', e.response);
+    });
 };
 
 const getWeather = () => {
-  axios.get(BASE_URL + '/weather', {
-    params: {
-      lan: state.lan,
-      lon: state.lon
+    axios.get(BASE_URL + '/weather', {
+        params: {
+            lan: state.lan,
+            lon: state.lon
+        }
+    }).then(e => {
+        e = e.data;
+        return state.temp = Math.round(convertKtoF(e.main.temp)),
+        formatTemp();
     }
-  }).then(e => {
-    e = e.data;
-    return state.temp = Math.round(convertKtoF(e.main.temp));
-    // formatTempAndGarden()
-  }
 ).catch(e => {
     console.log('Error getting the weather:', e);
-  });
+});
 };
 
 realTempButton.addEventListener('click', () => {
-  // change tempLabel to real time temp
-  
-  console.log('this button has been clicked');
+    // change tempLabel to real time temp
+    //   console.log('this button has been clicked');
+    formatTemp();
 });
 
+const formatTemp = () => {
+    let e = state.temp;
+    e. document.getElem
+    e.textContent = String(state.temp)entById('realtime-temp');
+};
 
+const cityNameUpdate = () => {
+    let e = cityName.value;
+    let t =  cityHeader;
+    
+    state.city = e
+    t.textContent = state.city
+}
+
+cityName.addEventListener("input", () => {
+    cityNameUpdate();
+})
+
+
+// cityName.addEventListener('input' (event)=>{
+//     cityName.textContent = event.target.value;
+// });
