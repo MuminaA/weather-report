@@ -9,10 +9,10 @@ const orangeTemp = 70;
 const yellowTemp = 60;
 const greenTemp = 50;
 const parentElementDoll = document.getElementById('doll');
-const gifFire = document.createElement('gifFire');
-gifFire.scr = '../assets/sunny-98.png';
+const gifFire = document.createElement('img');
+gifFire.src = 'ada-project-docs/assets/fire.gif';
 gifFire.alt = 'A gif image of fire';
-gifFire.style.height = '200px';
+gifFire.style.height = '450px';
 
 let BASE_URL = '';
 
@@ -32,13 +32,13 @@ tempSlider.addEventListener('input', (event) => {
   state.temp = event.target.value;
   state.tempLabel = event.target.value;
   tempLabel.textContent = event.target.value;
-  //changeBackgroundColor();
+  changeBackgroundColor();
   updateLandscape();
 });
 
 const changeBackgroundColor = (event) => {
   if (state.temp >= redTemp) {
-    parentElementDoll.style.backgroundColor = '#ff0000ff';
+    parentElementDoll.style.backgroundColor = '#cb4949ff';
   } else if (state.temp >= orangeTemp){
     parentElementDoll.style.backgroundColor = '#f6a612ff';
   } else if (state.temp >= yellowTemp){
@@ -53,6 +53,8 @@ const changeBackgroundColor = (event) => {
 const updateLandscape = () => {
   if (state.temp >= redTemp) {
     parentElementDoll.appendChild(gifFire);
+    gifFire.style.display = 'block';
+
 // } else if (state.temp >= orangeTemp){
 //     document.getElementById('doll-holder').style.backgroundColor = '#f6a612ff';
 //   } else if (state.temp >= yellowTemp){
