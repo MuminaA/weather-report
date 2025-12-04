@@ -1,15 +1,3 @@
-/* @import  url('https://www.1001fonts.com/cotton-cloud-font.html')
-
-@font-face {
-  font-family: 'Cotton Cloud';
-  src: url('fonts/CottonCloud.woff2') format('woff2'),
-       url('fonts/CottonCloud.woff') format('woff'),
-       url('fonts/CottonCloud.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-} */
-
 
 .first-color { 
 	background: #b9f9ff; 
@@ -27,11 +15,6 @@
 	background: #f5cd6d;  
  
 }
-
-/* *{
-    border: 1px black solid;
-} */
-
 
 header{
     display: flex;
@@ -54,18 +37,22 @@ header{
     justify-content: center;
     align-items: center;
     background-color: #e0f9fb;
-    border: 3px black solid;
+    /* border: 3px black solid; */
     gap: 1rem;
+}
+
+#doll-image{
+    width: 600px;
+    height: auto;
+    display: flex;
 }
 
 #doll{
     display: grid;
-
-    width: 500px;
-    height: 500px;
     padding: 1rem;
     align-items: center;
-    border: 3px black solid;
+    justify-content: center;
+    /* border: 3px black solid; */
 }
 
 #top, #bottom {
@@ -75,7 +62,7 @@ header{
     height: 215px;
     padding: 1rem;
     margin: 0.5rem 0;
-    border: 3px black solid;
+    /* border: 3px black solid; */
 }
 
 #left-side, #right-side {
@@ -93,7 +80,7 @@ header{
     height: 215px;
     padding: 1rem;
     margin: 0.5rem 0;
-    border: 3px black solid;
+    /* border: 3px black solid; */
 }
 
 body { 
@@ -107,9 +94,9 @@ h1 {
     font-family: 'Cotton Cloud', sans-serif;
 }
 
-#doll-section {
+/* #doll-section {
     border: 1px green solid;
-}
+} */
 
 
 #info-section {

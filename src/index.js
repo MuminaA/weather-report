@@ -5,15 +5,22 @@ const dropDownMenu = document.getElementById('drop-down-menu');
 const tempLabel = document.getElementById('temp-label');
 const cityName = document.getElementById('city');
 const cityHeader = document.getElementById('city-header');
+const doll = document.getElementById('doll-image');
 const redTemp = 80;
 const orangeTemp = 70;
 const yellowTemp = 60;
 const greenTemp = 50;
 const parentElementDoll = document.getElementById('doll');
 const gifFire = document.createElement('img');
-gifFire.src = 'ada-project-docs/assets/fire.gif';
+gifFire.src = 'ada-project-docs/assets/landscape/fire.gif';
 gifFire.alt = 'A gif image of fire';
-gifFire.style.height = '450px';
+gifFire.style.height = '400px';
+gifFire.style.width = '600px';
+gifFire.style.position = 'absolute';
+gifFire.style.bottom = '300px';
+gifFire.style.zIndex = '0';
+doll.style.zIndex = '1';
+
 
 let BASE_URL = 'http://127.0.0.1:5500/';
 
@@ -129,4 +136,4 @@ resetButton.addEventListener('click', () => {
     cityName.value = 'Seattle';
 });
 
-////////////////////////////////
+////////////////////////////////sky change////////////////////////////////////
