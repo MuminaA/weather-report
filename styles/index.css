@@ -1,3 +1,16 @@
+@font-face {
+  font-family: "cloud-font";
+  src: url('../ada-project-docs/assets/cloud-font.woff') format("woff");
+}
+@font-face {
+  font-family: "clouds-font";
+  src: url('../ada-project-docs/assets/clouds-font.woff2') format("woff2");
+}
+@font-face {
+  font-family: "cotton-cloud";
+  src: url('../ada-project-docs/assets/cotton-cloud.woff2') format("woff2");
+}
+
 
 .first-color { 
 	background: #b9f9ff; 
@@ -20,7 +33,6 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
 }
 
 #doll-section {
@@ -89,11 +101,6 @@ body {
     flex-direction: column;
 }
 
-
-h1 {
-    font-family: 'Cotton Cloud', sans-serif;
-}
-
 /* #doll-section {
     border: 1px green solid;
 } */
@@ -124,8 +131,34 @@ h1 {
     width: 300px;
 }
 
+label {
+    font-size: 35px;
+}
+
+button {
+    border-radius: 20%;
+}
 
 
-/* https://www.myfonts.com/collections/cloudy-font-happy-type-club?queryId=65b9d1bcb41d4d44243fd81b264434df&index=universal_search_data&objectIDs=MTAzOTI5N180NTc2MjBfMTc1MDQyMTE0OA
+h1{
+    /* font-family: 'cloud-font', 'Verdana'; */
+    font-family: 'cotton-cloud', verdana;
+    font-size: 5rem;
+    color: #11aac9;
+    text-align: center;
+}
 
-https://www.fontspace.com/category/cloudy */
+span {
+    font-family: 'cotton-cloud', verdana;
+    color: #e6a714;
+}
+
+label {
+    font-family: 'cotton-cloud', verdana;
+    font-size: 50px;
+}
+
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: solid 3px black;
+}

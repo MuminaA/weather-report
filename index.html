@@ -33,27 +33,27 @@
         </section>
         <section id="info-section">
             <section id="temperture" class="info-box">
-                <h2>Temperature</h2>
                 <section class="info">
                     <div id="slider-bar">
+                        <label for="temp">Temp</label>
                         <input type="range" id="temp" name="temperature" max="200"/>
-                        <label for="=temp" id="temp-label">70</label>
+                        <p id="temp-label">70</p>
                     </div>
                     <button id="realtime-temp">Get Realtime Temperature</button>
                 </section>
             </section>
             <section id="sky" class="info-box">
-                <h2>sky</h2>
+                <label for="sky-drop-down-menu">Sky</label>
                 <select id="drop-down-menu">
-                    <option>Sunny</option>
-                    <option>Cloudy</option>
-                    <option>Rainy</option>
-                    <option>Snowy</option>
+                    <option value="sunny">sunny</option>
+                    <option value="cloudy">cloudy</option>
+                    <option value="rainy">rainy</option>
+                    <option value="snowy">snowy</option>
                 </select>
             </section>
             <section id="city-container" class="info-box">
-                <h2>city</h2>
                 <section class="info">
+                    <label for="city">City</label>
                     <input id="city" type="text" value="Seattle">
                     <button id="reset-button">Reset</button>
                 </section>
