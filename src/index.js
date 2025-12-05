@@ -20,6 +20,25 @@ gifFire.style.position = 'absolute';
 gifFire.style.bottom = '300px';
 gifFire.style.zIndex = '0';
 doll.style.zIndex = '1';
+// sunnySky = {}
+
+//add eventlistener for DOM content loaded
+//set up the document.get elements
+//function registerEventHandlers
+//load page function - > is calling load elements and regist evevents
+//  inside load elements function - then do document.get 
+    //set up all elements
+//  set up documents, set up functions
+//  create register events 
+
+///const registerEventHandlers = (event) => {
+//   const crabButton = document.querySelector('#addCrabButton');
+//   crabButton.addEventListener('click', addCrab);
+// };
+
+// document.addEventListener('DOMContentLoaded', registerEventHandlers);
+
+
 
 // here for testing //
 const LOCATION_KEY = 'your_actual_key_here';
@@ -102,6 +121,7 @@ const getCoordinates = async (cityName) => {
     console.error('Error getting coordinates:', error);
     alert('Could not find that city. Please try another name.');
     return null;
+    //maybe we should return this catch ouside of 
   }
 };
 
@@ -192,8 +212,14 @@ skyDropDownMenu.addEventListener('change', (event) =>{
   changeSky(event);
 });
 
+// const SkyBLabla(skyObj){
+
+// }
+
 const changeSky = () => {
+
   if (skyDropDownMenu.value === 'sunny'){
+    // skyblablaa(sunny);
     const sunnySky = document.createElement('img');
     parentElementDoll.appendChild(sunnySky);
     sunnySky.src = 'ada-project-docs/sky/sunny.gif';
@@ -202,8 +228,8 @@ const changeSky = () => {
     //create and update outside of a function
     //or inside
     sunnySky.alt = 'A gif image of fire';
-    sunnySky.style.height = '250px';
-    sunnySky.style.width = '250px';
+    sunnySky.style.height = '200px';
+    sunnySky.style.width = '200px';
     sunnySky.style.position = 'absolute';
     sunnySky.style.bottom = '650px';
     sunnySky.style.left = '700px';
