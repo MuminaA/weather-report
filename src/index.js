@@ -1,7 +1,7 @@
 const realTempButton = document.getElementById('realtime-temp');
 const resetButton = document.getElementById('reset-button');
 const tempSlider = document.getElementById('temp');
-const dropDownMenu = document.getElementById('drop-down-menu');
+const skyDropDownMenu = document.getElementById('sky-drop-down-menu');
 const tempLabel = document.getElementById('temp-label');
 const cityName = document.getElementById('city');
 const cityHeader = document.getElementById('city-header');
@@ -138,3 +138,28 @@ resetButton.addEventListener('click', () => {
 
 ////////////////////////////////sky change////////////////////////////////////
 
+skyDropDownMenu.addEventListener('change', (event) =>{
+    state.sky = skyDropDownMenu.value
+    changeSky(event);
+});
+
+const changeSky = () => {
+    if (skyDropDownMenu.value === 'sunny'){
+        sunnySky = document.createElement('img')
+        parentElementDoll.appendChild(sunnySky)
+        sunnySky.src = 'ada-project-docs/sky/sunny.gif'
+
+        /////////ask instructors whats thebest approach here
+        //create and update outside of a function
+        //or inside
+        sunnySky.alt = 'A gif image of fire';
+        sunnySky.style.height = '250px';
+        sunnySky.style.width = '250px';
+        sunnySky.style.position = 'absolute';
+        sunnySky.style.bottom = '550px';
+        sunnySky.style.left = '500px';
+
+
+    }
+
+}
