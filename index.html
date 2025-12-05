@@ -14,35 +14,35 @@
     <body>
     <header id="weather-report"><h1>Weather Report for the magic city of <span id="city-header">Seattle</span></h1></header>
     <main>
-        <section id="doll-section">
+        <div id="doll-section">
             <div id="doll-holder">
                 <div id="left-side">
-                    <section id="top">top</section>
-                    <section id="bottom">bottom</section>
+                    <div id="top">top</div>
+                    <div id="bottom">bottom</div>
                 </div>
                 <div id="center">
-                    <section id="doll">
+                    <div id="doll">
                         <img id="doll-image" src="ada-project-docs/assets/doll.png" alt="a cartoony doll">
-                    </section>
+                    </div>
                 </div>
                 <div id="right-side">
-                    <section id="hat">hat</section>
-                    <section id="shoes">shoes</section>
+                    <div id="hat">hat</div>
+                    <div id="shoes">shoes</div>
                 </div>
             </div>
-        </section>
-        <section id="info-section">
-            <section id="temperture" class="info-box">
-                <section class="info">
+        </div>
+        <div id="info-section">
+            <div id="temperture" class="info-box">
+                <div class="info">
                     <div id="slider-bar">
                         <label for="temp">Temp</label>
                         <button id="realtime-temp">Get Realtime Temperature</button>
-                        <input type="range" id="temp" name="temperature" max="200"/>
+                        <input type="range" id="temp" name="temperature" max="200">
                         <p id="temp-label">70</p>
                     </div>
-                </section>
-            </section>
-            <section id="sky" class="info-box">
+                </div>
+            </div>
+            <div id="sky" class="info-box">
                 <label for="sky-drop-down-menu" id="sky-label">Sky</label>
                 <select id="sky-drop-down-menu">
                     <option value="sunny">sunny</option>
@@ -50,15 +50,15 @@
                     <option value="rainy">rainy</option>
                     <option value="snowy">snowy</option>
                 </select>
-            </section>
-            <section id="city-container" class="info-box">
-                <section class="info">
+            </div>
+            <div id="city-container" class="info-box">
+                <div class="info">
                     <label for="city">City</label>
                     <input id="city" type="text" value="Seattle">
                     <button id="reset-button">Reset</button>
-                </section>
-            </section>
-        </section>
+                </div>
+            </div>
+        </div>
     </main>
     <footer></footer>
 </body>

@@ -222,17 +222,16 @@ const changeSky = () => {
     // skyblablaa(sunny);
     const sunnySky = document.createElement('img');
     parentElementDoll.appendChild(sunnySky);
-    sunnySky.src = 'ada-project-docs/sky/sunny.gif';
+    sunnySky.src = 'ada-project-docs/assets/sky/sunny.gif';
 
     /////////ask instructors whats thebest approach here
     //create and update outside of a function
     //or inside
-    sunnySky.alt = 'A gif image of fire';
+    sunnySky.alt = 'A gif image of sun in the sky';
     sunnySky.style.height = '200px';
     sunnySky.style.width = '200px';
     sunnySky.style.position = 'absolute';
-    sunnySky.style.bottom = '650px';
-    sunnySky.style.left = '700px';
+    sunnySky.style.bottom = '450px';
+    sunnySky.style.left = '450px';
   }
-
-}
+};
