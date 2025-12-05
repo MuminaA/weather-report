@@ -56,7 +56,7 @@ body {
 }
 #doll-holder{
     display: flex;
-    width:  28rem;
+    width:  35rem;
     /* height: auto; */
     justify-content: center;
     /* align-items: center; */
