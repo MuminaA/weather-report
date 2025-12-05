@@ -205,8 +205,8 @@ const changeSky = () => {
     sunnySky.style.height = '250px';
     sunnySky.style.width = '250px';
     sunnySky.style.position = 'absolute';
-    sunnySky.style.bottom = '400px';
-    sunnySky.style.left = '500px';
+    sunnySky.style.bottom = '650px';
+    sunnySky.style.left = '700px';
   }
 
 }
