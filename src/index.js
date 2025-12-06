@@ -28,6 +28,9 @@ const elements = {
   parentElementDoll: null,
   gifFire: null,
   sunnySky: null,
+  cloudySky: null,
+  rainySky: null,
+  snowySky: null,
 };
 
 
@@ -59,8 +62,36 @@ const setupElements = () => {
   elements.sunnySky.style.height = '200px';
   elements.sunnySky.style.width = '200px';
   elements.sunnySky.style.position = 'absolute';
-  elements.sunnySky.style.bottom = '450px';
-  elements.sunnySky.style.left = '450px';
+  elements.sunnySky.style.bottom = '460px';
+  elements.sunnySky.style.left = '420px';
+
+  elements.cloudySky = document.createElement('img');
+  elements.cloudySky.src = 'ada-project-docs/assets/sky/cloudy.gif';
+  elements.cloudySky.alt = 'A gif image of clouds in the sky';
+  elements.cloudySky.style.height = '300px';
+  elements.cloudySky.style.width = '300px';
+  elements.cloudySky.style.position = 'absolute';
+  elements.cloudySky.style.bottom = '350px';
+  elements.cloudySky.style.left = '325px';
+
+  elements.rainySky = document.createElement('img');
+  elements.rainySky.src = 'ada-project-docs/assets/sky/rainy.gif';
+  elements.rainySky.alt = 'A gif image of rain in the sky';
+  elements.rainySky.style.height = '350px';
+  elements.rainySky.style.width = '350px';
+  elements.rainySky.style.position = 'absolute';
+  elements.rainySky.style.bottom = '315px';
+  elements.rainySky.style.left = '375px';
+
+  elements.snowySky = document.createElement('img');
+  elements.snowySky.src = 'ada-project-docs/assets/sky/snowy.gif';
+  elements.snowySky.alt = 'A gif image of snow in the sky';
+  elements.snowySky.style.height = '600px';
+  elements.snowySky.style.width = '600px';
+  elements.snowySky.style.position = 'absolute';
+  elements.snowySky.style.bottom = '10px';
+  elements.snowySky.style.right = '1px';
+  elements.snowySky.style.zIndex = '1';
 
     // Initial UI sync with state
   elements.tempSlider.value = state.temp;
@@ -191,15 +222,48 @@ const changeBackgroundColor = () => {
   }
 };
 
+const clearSkyImages = () => {
+  const {
+    parentElementDoll,
+    sunnySky,
+    cloudySky,
+    rainySky,
+    snowySky,
+    } = elements;
+
+  if (sunnySky.parentNode === parentElementDoll) {
+    parentElementDoll.removeChild(sunnySky);
+  } else if (cloudySky.parentNode === parentElementDoll) {
+    parentElementDoll.removeChild(cloudySky);
+  } else if (rainySky.parentNode === parentElementDoll) {
+    parentElementDoll.removeChild(rainySky);
+  } else if (snowySky.parentNode === parentElementDoll) {
+    parentElementDoll.removeChild(snowySky);
+  }
+};  
+
 const changeSky = () => {
   const {
     parentElementDoll,
     skyDropDownMenu,
-    sunnySky
+    sunnySky,
+    cloudySky,
+    rainySky,
+    snowySky,
     } = elements;
 
   if (skyDropDownMenu.value === 'sunny'){
+    clearSkyImages();
     parentElementDoll.appendChild(sunnySky);
+  } else if (skyDropDownMenu.value === 'cloudy'){
+    clearSkyImages();
+    parentElementDoll.appendChild(cloudySky);
+    } else if (skyDropDownMenu.value === 'rainy'){
+      clearSkyImages();
+      parentElementDoll.appendChild(rainySky);
+  } else if (skyDropDownMenu.value === 'snowy'){
+    clearSkyImages();
+    parentElementDoll.appendChild(snowySky);
   }
 };
 
@@ -218,7 +282,7 @@ const updateLandscape = () => {
   if (state.temp >= RED_TEMP) {
     parentElementDoll.appendChild(gifFire);
     gifFire.style.display = 'block';
-  } else {
+  } else if (state.temp >= ORANGE_TEMP) {
     if (gifFire.parentNode === parentElementDoll) {
       parentElementDoll.removeChild(gifFire);
     } }
@@ -280,7 +344,6 @@ const getTemperature = async (lat, lon) => {
     return null;
   }
 };
-
 
 document.addEventListener('DOMContentLoaded', () => {
   setupElements();
