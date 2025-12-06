@@ -1,4 +1,4 @@
-"strict mode";
+'strict mode';
 
 const state = {
   temp: 70,
@@ -10,11 +10,11 @@ const state = {
 };
 
 const config = {
-    RED_TEMP: 80,
-    ORANGE_TEMP: 70,
-    YELLOW_TEMP: 60,
-    GREEN_TEMP: 50,
-}
+  RED_TEMP: 80,
+  ORANGE_TEMP: 70,
+  YELLOW_TEMP: 60,
+  GREEN_TEMP: 50,
+};
 
 const elements = {
   realTimeButton: null,
@@ -36,7 +36,9 @@ const elements = {
   snowySky: null,
 };
 
-
+const convertKtoF = e => {
+  return 1.8 * (e - 273.15) + 32;
+};
 
 const setupElements = () => {
   elements.realTimeButton = document.getElementById('realtime-temp');
@@ -102,8 +104,8 @@ const setupElements = () => {
   elements.sunnySky.style.height = '200px';
   elements.sunnySky.style.width = '200px';
   elements.sunnySky.style.position = 'absolute';
-  elements.sunnySky.style.bottom = '460px';
-  elements.sunnySky.style.left = '420px';
+  elements.sunnySky.style.bottom = '430px';
+  elements.sunnySky.style.left = '360px';
 
   elements.cloudySky = document.createElement('img');
   elements.cloudySky.src = 'ada-project-docs/assets/sky/cloudy.gif';
@@ -112,16 +114,16 @@ const setupElements = () => {
   elements.cloudySky.style.width = '300px';
   elements.cloudySky.style.position = 'absolute';
   elements.cloudySky.style.bottom = '350px';
-  elements.cloudySky.style.left = '325px';
+  elements.cloudySky.style.left = '260px';
 
   elements.rainySky = document.createElement('img');
   elements.rainySky.src = 'ada-project-docs/assets/sky/rainy.gif';
   elements.rainySky.alt = 'A gif image of rain in the sky';
-  elements.rainySky.style.height = '350px';
-  elements.rainySky.style.width = '350px';
+  elements.rainySky.style.height = '330px';
+  elements.rainySky.style.width = '330px';
   elements.rainySky.style.position = 'absolute';
-  elements.rainySky.style.bottom = '315px';
-  elements.rainySky.style.left = '375px';
+  elements.rainySky.style.bottom = '300px';
+  elements.rainySky.style.left = '245px';
 
   elements.snowySky = document.createElement('img');
   elements.snowySky.src = 'ada-project-docs/assets/sky/snowy.gif';
@@ -129,9 +131,9 @@ const setupElements = () => {
   elements.snowySky.style.height = '600px';
   elements.snowySky.style.width = '600px';
   elements.snowySky.style.position = 'absolute';
-  elements.snowySky.style.bottom = '10px';
+  elements.snowySky.style.bottom = '30px';
   elements.snowySky.style.right = '1px';
-  elements.snowySky.style.zIndex = '1';
+  elements.snowySky.style.zIndex = '0';
 
     // Initial UI sync with state
   elements.tempSlider.value = state.temp;
@@ -229,11 +231,6 @@ const registerEventHandlers = () => {
     changeSky();
   });
   
-};
-
-
-const convertKtoF = e => {
-  return 1.8 * (e - 273.15) + 32;
 };
 
 /////////temp slider change and background and landscape change///////////////////////
@@ -362,45 +359,32 @@ const updateLandscape = () => {
 
 // Function to get coordinates from city name using LocationIQ
 const getCoordinates = async (cityName) => {
-  try {
-    const response = await fetch(
-      `https://us1.locationiq.com/v1/search.php?key=${LOCATION_KEY}&q=${encodeURIComponent(cityName)}&format=json`
-    );
-    const data = await response.json();
-    
-    if (data && data.length > 0) {
-      return {
-        lat: parseFloat(data[0].lat),
-        lon: parseFloat(data[0].lon)
-      };
-    } else {
-      throw new Error('City not found');
-    }
-  } catch (error) {
-    console.error('Error getting coordinates:', error);
-    alert('Could not find that city. Please try another name.');
-    return null;
-    //maybe we should return this catch ouside of 
+  const response = await fetch(
+    `https://us1.locationiq.com/v1/search.php?key=${LOCATION_KEY}&q=${encodeURIComponent(cityName)}&format=json`
+  );
+  const data = await response.json();
+
+  if (data && data.length > 0) {
+    return {
+      lat: parseFloat(data[0].lat),
+      lon: parseFloat(data[0].lon)
+    };
+  } else {
+    throw new Error('City not found');
   }
 };
 
 // Function to get temperature from OpenWeather API
 const getTemperature = async (lat, lon) => {
-  try {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}`
-    );
-    const data = await response.json();
-    
-    if (data && data.main && data.main.temp) {
-      return convertKtoF(data.main.temp);
-    } else {
-      throw new Error('Temperature data not available');
-    }
-  } catch (error) {
-    console.error('Error getting temperature:', error);
-    alert('Could not get temperature data. Please try again.');
-    return null;
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}`
+  );
+  const data = await response.json();
+
+  if (data && data.main && data.main.temp) {
+    return convertKtoF(data.main.temp);
+  } else {
+    throw new Error('Temperature data not available');
   }
 };
 
