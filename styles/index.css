@@ -1,14 +1,14 @@
 @font-face {
   font-family: "cloud-font";
-  src: url('../ada-project-docs/assets/cloud-font.woff') format("woff");
+  src: url('../ada-project-docs/assets/fonts/cloud-font.woff') format("woff");
 }
 @font-face {
   font-family: "clouds-font";
-  src: url('../ada-project-docs/assets/clouds-font.woff2') format("woff2");
+  src: url('../ada-project-docs/assets/fonts/clouds-font.woff2') format("woff2");
 }
 @font-face {
   font-family: "cotton-cloud";
-  src: url('../ada-project-docs/assets/cotton-cloud.woff2') format("woff2");
+  src: url('../ada-project-docs/assets/fonts/cotton-cloud.woff2') format("woff2");
 }
 
 
