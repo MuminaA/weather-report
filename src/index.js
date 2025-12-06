@@ -1,4 +1,4 @@
-"strict mode";
+'strict mode';
 
 const state = {
   temp: 70,
@@ -10,11 +10,11 @@ const state = {
 };
 
 const config = {
-    RED_TEMP: 80,
-    ORANGE_TEMP: 70,
-    YELLOW_TEMP: 60,
-    GREEN_TEMP: 50,
-}
+  RED_TEMP: 80,
+  ORANGE_TEMP: 70,
+  YELLOW_TEMP: 60,
+  GREEN_TEMP: 50,
+};
 
 const elements = {
   realTimeButton: null,
@@ -36,7 +36,9 @@ const elements = {
   snowySky: null,
 };
 
-
+const convertKtoF = e => {
+  return 1.8 * (e - 273.15) + 32;
+};
 
 const setupElements = () => {
   elements.realTimeButton = document.getElementById('realtime-temp');
@@ -64,34 +66,34 @@ const setupElements = () => {
   elements.gifFire.style.zIndex = '0';
 
   elements.beachTemp = document.createElement('img');
-  elements.beachTemp.src = 'ada-project-docs/assets/landscape/beachTemp.gif';
+  elements.beachTemp.src = 'ada-project-docs/assets/landscape/beachTemp.png';
   elements.beachTemp.alt = 'A gif image of beach landscape';
   elements.beachTemp.style.display = 'block';
   elements.beachTemp.style.height = '400px';
   elements.beachTemp.style.width = '35.2rem';
   elements.beachTemp.style.position = 'absolute';
-  elements.beachTemp.style.bottom = '100px';
-  elements.beachTemp.style.zIndex = '1';
+  elements.beachTemp.style.bottom = '60px';
+  elements.beachTemp.style.zIndex = '0';
 
   elements.forestTemp = document.createElement('img');
-  elements.forestTemp.src = 'ada-project-docs/assets/landscape/forestTemp.gif';
+  elements.forestTemp.src = 'ada-project-docs/assets/landscape/forestTemp.png';
   elements.forestTemp.alt = 'A gif image of forest landscape';
   elements.forestTemp.style.display = 'block';
   elements.forestTemp.style.height = '400px';
   elements.forestTemp.style.width = '35.2rem';
   elements.forestTemp.style.position = 'absolute';
-  elements.forestTemp.style.bottom = '100px';
-  elements.forestTemp.style.zIndex = '1';
+  elements.forestTemp.style.bottom = '60px';
+  elements.forestTemp.style.zIndex = '0';
 
   elements.winterTemp = document.createElement('img');
-  elements.winterTemp.src = 'ada-project-docs/assets/landscape/winterTemp.gif';
+  elements.winterTemp.src = 'ada-project-docs/assets/landscape/winterTemp.png';
   elements.winterTemp.alt = 'A gif image of winter landscape';
   elements.winterTemp.style.display = 'block';
   elements.winterTemp.style.height = '400px';
   elements.winterTemp.style.width = '35.2rem';
   elements.winterTemp.style.position = 'absolute';
-  elements.winterTemp.style.bottom = '100px';
-  elements.winterTemp.style.zIndex = '1';
+  elements.winterTemp.style.bottom = '60px';
+  elements.winterTemp.style.zIndex = '0';
   
 
   //////////////////////////////
@@ -102,8 +104,8 @@ const setupElements = () => {
   elements.sunnySky.style.height = '200px';
   elements.sunnySky.style.width = '200px';
   elements.sunnySky.style.position = 'absolute';
-  elements.sunnySky.style.bottom = '460px';
-  elements.sunnySky.style.left = '420px';
+  elements.sunnySky.style.bottom = '430px';
+  elements.sunnySky.style.left = '360px';
 
   elements.cloudySky = document.createElement('img');
   elements.cloudySky.src = 'ada-project-docs/assets/sky/cloudy.gif';
@@ -112,16 +114,16 @@ const setupElements = () => {
   elements.cloudySky.style.width = '300px';
   elements.cloudySky.style.position = 'absolute';
   elements.cloudySky.style.bottom = '350px';
-  elements.cloudySky.style.left = '325px';
+  elements.cloudySky.style.left = '260px';
 
   elements.rainySky = document.createElement('img');
   elements.rainySky.src = 'ada-project-docs/assets/sky/rainy.gif';
   elements.rainySky.alt = 'A gif image of rain in the sky';
-  elements.rainySky.style.height = '350px';
-  elements.rainySky.style.width = '350px';
+  elements.rainySky.style.height = '330px';
+  elements.rainySky.style.width = '330px';
   elements.rainySky.style.position = 'absolute';
-  elements.rainySky.style.bottom = '315px';
-  elements.rainySky.style.left = '375px';
+  elements.rainySky.style.bottom = '300px';
+  elements.rainySky.style.left = '245px';
 
   elements.snowySky = document.createElement('img');
   elements.snowySky.src = 'ada-project-docs/assets/sky/snowy.gif';
@@ -129,9 +131,9 @@ const setupElements = () => {
   elements.snowySky.style.height = '600px';
   elements.snowySky.style.width = '600px';
   elements.snowySky.style.position = 'absolute';
-  elements.snowySky.style.bottom = '10px';
+  elements.snowySky.style.bottom = '30px';
   elements.snowySky.style.right = '1px';
-  elements.snowySky.style.zIndex = '1';
+  elements.snowySky.style.zIndex = '0';
 
     // Initial UI sync with state
   elements.tempSlider.value = state.temp;
@@ -229,11 +231,6 @@ const registerEventHandlers = () => {
     changeSky();
   });
   
-};
-
-
-const convertKtoF = e => {
-  return 1.8 * (e - 273.15) + 32;
 };
 
 /////////temp slider change and background and landscape change///////////////////////
@@ -362,45 +359,32 @@ const updateLandscape = () => {
 
 // Function to get coordinates from city name using LocationIQ
 const getCoordinates = async (cityName) => {
-  try {
-    const response = await fetch(
-      `https://us1.locationiq.com/v1/search.php?key=${LOCATION_KEY}&q=${encodeURIComponent(cityName)}&format=json`
-    );
-    const data = await response.json();
-    
-    if (data && data.length > 0) {
-      return {
-        lat: parseFloat(data[0].lat),
-        lon: parseFloat(data[0].lon)
-      };
-    } else {
-      throw new Error('City not found');
-    }
-  } catch (error) {
-    console.error('Error getting coordinates:', error);
-    alert('Could not find that city. Please try another name.');
-    return null;
-    //maybe we should return this catch ouside of 
+  const response = await fetch(
+    `https://us1.locationiq.com/v1/search.php?key=${LOCATION_KEY}&q=${encodeURIComponent(cityName)}&format=json`
+  );
+  const data = await response.json();
+
+  if (data && data.length > 0) {
+    return {
+      lat: parseFloat(data[0].lat),
+      lon: parseFloat(data[0].lon)
+    };
+  } else {
+    throw new Error('City not found');
   }
 };
 
 // Function to get temperature from OpenWeather API
 const getTemperature = async (lat, lon) => {
-  try {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}`
-    );
-    const data = await response.json();
-    
-    if (data && data.main && data.main.temp) {
-      return convertKtoF(data.main.temp);
-    } else {
-      throw new Error('Temperature data not available');
-    }
-  } catch (error) {
-    console.error('Error getting temperature:', error);
-    alert('Could not get temperature data. Please try again.');
-    return null;
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}`
+  );
+  const data = await response.json();
+
+  if (data && data.main && data.main.temp) {
+    return convertKtoF(data.main.temp);
+  } else {
+    throw new Error('Temperature data not available');
   }
 };
 
