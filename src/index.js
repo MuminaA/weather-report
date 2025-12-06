@@ -64,34 +64,34 @@ const setupElements = () => {
   elements.gifFire.style.zIndex = '0';
 
   elements.beachTemp = document.createElement('img');
-  elements.beachTemp.src = 'ada-project-docs/assets/landscape/beachTemp.gif';
+  elements.beachTemp.src = 'ada-project-docs/assets/landscape/beachTemp.png';
   elements.beachTemp.alt = 'A gif image of beach landscape';
   elements.beachTemp.style.display = 'block';
   elements.beachTemp.style.height = '400px';
   elements.beachTemp.style.width = '35.2rem';
   elements.beachTemp.style.position = 'absolute';
   elements.beachTemp.style.bottom = '100px';
-  elements.beachTemp.style.zIndex = '1';
+  elements.beachTemp.style.zIndex = '0';
 
   elements.forestTemp = document.createElement('img');
-  elements.forestTemp.src = 'ada-project-docs/assets/landscape/forestTemp.gif';
+  elements.forestTemp.src = 'ada-project-docs/assets/landscape/forestTemp.png';
   elements.forestTemp.alt = 'A gif image of forest landscape';
   elements.forestTemp.style.display = 'block';
   elements.forestTemp.style.height = '400px';
   elements.forestTemp.style.width = '35.2rem';
   elements.forestTemp.style.position = 'absolute';
   elements.forestTemp.style.bottom = '100px';
-  elements.forestTemp.style.zIndex = '1';
+  elements.forestTemp.style.zIndex = '0';
 
   elements.winterTemp = document.createElement('img');
-  elements.winterTemp.src = 'ada-project-docs/assets/landscape/winterTemp.gif';
+  elements.winterTemp.src = 'ada-project-docs/assets/landscape/winterTemp.png';
   elements.winterTemp.alt = 'A gif image of winter landscape';
   elements.winterTemp.style.display = 'block';
   elements.winterTemp.style.height = '400px';
   elements.winterTemp.style.width = '35.2rem';
   elements.winterTemp.style.position = 'absolute';
   elements.winterTemp.style.bottom = '100px';
-  elements.winterTemp.style.zIndex = '1';
+  elements.winterTemp.style.zIndex = '0';
   
 
   //////////////////////////////
