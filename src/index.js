@@ -27,6 +27,9 @@ const elements = {
   doll: null,
   parentElementDoll: null,
   gifFire: null,
+  beachTemp: null,
+  forestTemp: null,
+  winterTemp: null,
   sunnySky: null,
   cloudySky: null,
   rainySky: null,
@@ -45,16 +48,53 @@ const setupElements = () => {
   elements.cityHeader = document.getElementById('city-header');
   elements.doll = document.getElementById('doll-image');
   elements.parentElementDoll = document.getElementById('doll-holder');
+  
+  elements.doll.style.zIndex = '1';
+  elements.parentElementDoll.style.position = 'relative';
 
+  /////////////////////////////background elements/////////////////////////////
   elements.gifFire = document.createElement('img');
-  elements.gifFire.src = 'ada-project-docs/assets/landscape/fire.gif';
+  elements.gifFire.src = 'ada-project-docs/assets/landscape/fireTemp.gif';
   elements.gifFire.alt = 'A gif image of fire';
+  elements.gifFire.style.display = 'block';
   elements.gifFire.style.height = '400px';
   elements.gifFire.style.width = '35.2rem';
   elements.gifFire.style.position = 'absolute';
   elements.gifFire.style.bottom = '100px';
   elements.gifFire.style.zIndex = '0';
-  elements.doll.style.zIndex = '1';
+
+  elements.beachTemp = document.createElement('img');
+  elements.beachTemp.src = 'ada-project-docs/assets/landscape/beachTemp.gif';
+  elements.beachTemp.alt = 'A gif image of beach landscape';
+  elements.beachTemp.style.display = 'block';
+  elements.beachTemp.style.height = '400px';
+  elements.beachTemp.style.width = '35.2rem';
+  elements.beachTemp.style.position = 'absolute';
+  elements.beachTemp.style.bottom = '100px';
+  elements.beachTemp.style.zIndex = '1';
+
+  elements.forestTemp = document.createElement('img');
+  elements.forestTemp.src = 'ada-project-docs/assets/landscape/forestTemp.gif';
+  elements.forestTemp.alt = 'A gif image of forest landscape';
+  elements.forestTemp.style.display = 'block';
+  elements.forestTemp.style.height = '400px';
+  elements.forestTemp.style.width = '35.2rem';
+  elements.forestTemp.style.position = 'absolute';
+  elements.forestTemp.style.bottom = '100px';
+  elements.forestTemp.style.zIndex = '1';
+
+  elements.winterTemp = document.createElement('img');
+  elements.winterTemp.src = 'ada-project-docs/assets/landscape/winterTemp.gif';
+  elements.winterTemp.alt = 'A gif image of winter landscape';
+  elements.winterTemp.style.display = 'block';
+  elements.winterTemp.style.height = '400px';
+  elements.winterTemp.style.width = '35.2rem';
+  elements.winterTemp.style.position = 'absolute';
+  elements.winterTemp.style.bottom = '100px';
+  elements.winterTemp.style.zIndex = '1';
+  
+
+  //////////////////////////////
 
   elements.sunnySky = document.createElement('img');
   elements.sunnySky.src = 'ada-project-docs/assets/sky/sunny.gif';
@@ -210,15 +250,15 @@ const changeBackgroundColor = () => {
   } = config;
 
   if (state.temp >= RED_TEMP){
-    parentElementDoll.style.backgroundColor = '#cb4949ff';
+    parentElementDoll.style.backgroundColor = '#c05252ff';
   } else if (state.temp >= ORANGE_TEMP){
-    parentElementDoll.style.backgroundColor = '#f6a612ff';
+    parentElementDoll.style.backgroundColor = '#edbc80ff';
   } else if (state.temp >= YELLOW_TEMP){
-    parentElementDoll.style.backgroundColor = '#d7b16aff';
+    parentElementDoll.style.backgroundColor = '#f5f48aff';
   } else if (state.temp >= GREEN_TEMP){
-    parentElementDoll.style.backgroundColor = '#81ce62ff';
+    parentElementDoll.style.backgroundColor = '#a1e387ff';
   } else {
-    parentElementDoll.style.backgroundColor = '#008080';
+    parentElementDoll.style.backgroundColor = '#70eaeaff';
   }
 };
 
@@ -267,35 +307,54 @@ const changeSky = () => {
   }
 };
 
+const clearBackgroundElements = () => {
+  const {
+    parentElementDoll,
+    gifFire,
+    beachTemp,
+    forestTemp,
+    winterTemp,
+    } = elements;
+
+  if (gifFire.parentNode === parentElementDoll) {
+    parentElementDoll.removeChild(gifFire);
+  } else if (beachTemp.parentNode === parentElementDoll) {
+    parentElementDoll.removeChild(beachTemp);
+  } else if (forestTemp.parentNode === parentElementDoll) {
+    parentElementDoll.removeChild(forestTemp);
+  } else if (winterTemp.parentNode === parentElementDoll) {
+    parentElementDoll.removeChild(winterTemp);
+  }
+};
+
 const updateLandscape = () => {
   const {
     parentElementDoll,
-    gifFire
+    gifFire, 
+    beachTemp,
+    forestTemp,
+    winterTemp,
     } = elements;
+    
   const {
     RED_TEMP,
     ORANGE_TEMP,
-    YELLOW_TEMP,
     GREEN_TEMP
   } = config;
   
   if (state.temp >= RED_TEMP) {
+    clearBackgroundElements();
     parentElementDoll.appendChild(gifFire);
-    gifFire.style.display = 'block';
   } else if (state.temp >= ORANGE_TEMP) {
-    if (gifFire.parentNode === parentElementDoll) {
-      parentElementDoll.removeChild(gifFire);
-    } }
-// parentElementDoll.removeChild(gifFire);
-// parentElementDoll.appendChild();
-//     document.getElementById('doll-holder').style.backgroundColor = '#f6a612ff';
-//   } else if (state.temp >= yellowTemp){
-  //     document.getElementById('doll-holder').style.backgroundColor = '#d7b16aff';
-  //   } else if (state.temp >= greenTemp){
-    //     document.getElementById('doll-holder').style.backgroundColor = '#81ce62ff';
-    //   } else {
-      //     document.getElementById('doll-holder').style.backgroundColor = '#008080';
-      //   }
+    clearBackgroundElements();
+    parentElementDoll.appendChild(beachTemp);
+  } else if (state.temp >= GREEN_TEMP) {
+    clearBackgroundElements();
+    parentElementDoll.appendChild(forestTemp);
+  } else if (state.temp < GREEN_TEMP) {
+    clearBackgroundElements();
+    parentElementDoll.appendChild(winterTemp);
+  } 
 };
 
 
