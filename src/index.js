@@ -179,19 +179,40 @@ const handleRealTimeTemp = async () => {
     state.lat = parseFloat(coords.lat);
     state.lon = parseFloat(coords.lon);
 ``
-    const temp = await getTemperature(state.lat, state.lon);
-    state.temp = temp;
-    state.tempLabel = temp;
+    const response = await getTemperature(state.lat, state.lon);
+    state.temp = response.temp;
+    state.tempLabel = response.temp;
     // Update slider and label
-    elements.tempSlider.value = Math.trunc(temp);
-    elements.tempLabel.textContent = Math.trunc(temp);
-    // Update background and landscape
+    elements.tempSlider.value = Math.trunc(response.temp);
+    elements.tempLabel.textContent = Math.trunc(response.temp);
+    handleSkyChangeRealTime(response);
+
+  // Update background and landscape
     changeBackgroundColor();
     updateLandscape();
   } catch (error) {
     console.error('Error in realtime temperature fetch:', error);
     alert('An error occurred. Please try again.');
   }
+};
+
+const handleSkyChangeRealTime = (response) => {
+  if (response.weather.startsWith('Clea')) {
+    state.sky = 'sunny';
+    changeSky();
+  } else if (response.weather.startsWith('Clou')) {
+    state.sky = 'cloudy';
+    changeSky();
+  } else if (response.weather.startsWith('Rai') || response.weather.startsWith('Dri')) {
+    state.sky = 'rainy';
+    changeSky();
+  } else if (response.weather.startsWith('Sno')) {
+    state.sky = 'snowy';
+    changeSky();
+    state.sky = 'snowy';
+  } else {
+    state.sky = 'cloudy';
+}
 };
 
 const handleResetButton = () => {
@@ -254,16 +275,20 @@ const changeSky = () => {
     snowySky,
     } = elements;
 
-  if (skyDropDownMenu.value === 'sunny'){
+  if (state.sky === 'sunny'){
+    state.sky = 'sunny';
     clearSkyImages();
     parentElementDoll.appendChild(sunnySky);
-  } else if (skyDropDownMenu.value === 'cloudy'){
+  } else if (state.sky === 'cloudy'){
+    state.sky = 'cloudy';
     clearSkyImages();
     parentElementDoll.appendChild(cloudySky);
-    } else if (skyDropDownMenu.value === 'rainy'){
+    } else if (state.sky === 'rainy'){
+      state.sky = 'rainy';
       clearSkyImages();
       parentElementDoll.appendChild(rainySky);
-  } else if (skyDropDownMenu.value === 'snowy'){
+  } else if (state.sky === 'snowy'){
+    state.sky = 'snowy';
     clearSkyImages();
     parentElementDoll.appendChild(snowySky);
   }
@@ -351,8 +376,9 @@ const getTemperature = async (lat, lon) => {
     params: { lat, lon }});
 
     const temp = response.data.main.temp;
-    state.temp = convertKtoF(temp);
-    return convertKtoF(temp);
+    const weather = response.data.weather[0].main;
+
+    return {temp: convertKtoF(temp), weather};
 };
 
 document.addEventListener('DOMContentLoaded', () => {
