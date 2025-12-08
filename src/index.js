@@ -146,94 +146,83 @@ const setupElements = () => {
 };
 
 const registerEventHandlers = () => {
+
   const {
-    realTimeButton,
-    resetButton,
     tempSlider,
-    skyDropDownMenu,
-    tempLabel,
+    realTimeButton,
     cityInput,
-    cityHeader,
-  } = elements;
+    resetButton,
+    skyDropDownMenu,
+    } = elements;
 
-  tempSlider.addEventListener('input', (event) => {
-    state.temp = event.target.value;
-    state.tempLabel = event.target.value;
-    tempLabel.textContent = event.target.value;
-    changeBackgroundColor();
-    updateLandscape();
-  });
-
-  // Add event listener to the button
-  realTimeButton.addEventListener('click', async () => {
-    const cityName = cityInput.value.trim();
-    if (!cityName) {
-      alert('Please enter a city name');
-      return;
-    }
-    // Show loading state
-    realTimeButton.textContent = 'Loading...';
-    realTimeButton.disabled = true;
-    try {
-      // Get coordinates for the city
-      const coords = await getCoordinates(cityName);
-      if (coords) {
-        // Update state with new coordinates
-        state.lat = coords.lat;
-        state.lon = coords.lon;
-        state.city = cityName;
-        // Get temperature
-        const temp = await getTemperature(coords.lat, coords.lon);
-  
-        if (temp !== null) {
-          // Update state and UI
-          state.temp = Math.round(temp);
-          state.tempLabel = Math.round(temp).toString();
-  
-          // Update slider and label
-          tempSlider.value = Math.round(temp);
-          tempLabel.textContent = Math.round(temp);
-  
-          // Update background and landscape
-          changeBackgroundColor();
-          updateLandscape();
-  
-          // Update city header
-          document.getElementById('city-header').textContent = cityName;
-        }
-      }
-    } catch (error) {
-      console.error('Error in realtime temperature fetch:', error);
-      alert('An error occurred. Please try again.');
-    } finally {
-      realTimeButton.textContent = 'Get Realtime Temperature';
-      realTimeButton.disabled = false;
-    }
-  });
-  
-  ///////////////////////////////city name change and reset button///////////////////////
-  
-  cityInput.addEventListener('input', (event)=>{
-    cityHeader.textContent = event.target.value;
-    state.city = event.target.value;
-  });
-  
-  resetButton.addEventListener('click', () => {
-    state.city = 'Seattle';
-    cityHeader.textContent = 'Seattle';
-    cityInput.value = 'Seattle';
-  });
-  
-  ////////////////////////////////sky change////////////////////////////////////
-  
-  skyDropDownMenu.addEventListener('change', (event) =>{
-    state.sky = event.target.value;
-    changeSky();
-  });
-  
+  tempSlider.addEventListener('input', handleTempSlider);
+  realTimeButton.addEventListener('click', handleRealTimeTemp);
+  cityInput.addEventListener('input', handleCityInput);
+  resetButton.addEventListener('click', handleResetButton); 
+  skyDropDownMenu.addEventListener('change', handleSkyChange);
 };
 
-/////////temp slider change and background and landscape change///////////////////////
+const handleSkyChange = (event) => {
+  state.sky = event.target.value;
+  changeSky();
+};
+
+const handleCityInput = (event) => {
+  elements.cityHeader.textContent = event.target.value;
+  state.city = event.target.value;
+};
+
+const handleRealTimeTemp = async () => {
+  const cityName = cityInput.value.trim();
+  if (!cityName) {
+    alert('Please enter a city name');
+    return;
+  }
+  // Show loading state
+  realTimeButton.textContent = 'Loading...';
+  realTimeButton.disabled = true;
+  try {
+    // Get coordinates for the city
+    const coords = await getCoordinates(cityName);
+    if (coords) {
+      // Update state with new coordinates
+      state.lat = coords.lat;
+      state.lon = coords.lon;
+      state.city = cityName;
+      // Get temperature
+      const temp = await getTemperature(coords.lat, coords.lon);
+
+      if (temp !== null) {
+        // Update state and UI
+        state.temp = Math.round(temp);
+        state.tempLabel = Math.round(temp).toString();
+
+        // Update slider and label
+        tempSlider.value = Math.round(temp);
+        tempLabel.textContent = Math.round(temp);
+
+        // Update background and landscape
+        changeBackgroundColor();
+        updateLandscape();
+
+        // Update city header
+        document.getElementById('city-header').textContent = cityName;
+      }
+    }
+  } catch (error) {
+    console.error('Error in realtime temperature fetch:', error);
+    alert('An error occurred. Please try again.');
+  } finally {
+    realTimeButton.textContent = 'Get Realtime Temperature';
+    realTimeButton.disabled = false;
+  }
+};
+
+const handleResetButton = () => {
+  state.city = 'Seattle';
+  elements.cityHeader.textContent = 'Seattle';
+  elements.cityInput.value = 'Seattle';
+};  
 
 const changeBackgroundColor = () => {
   const {
@@ -354,6 +343,17 @@ const updateLandscape = () => {
   } 
 };
 
+const updateTemp = (event) => {
+  state.temp = event.target.value;
+  state.tempLabel = event.target.value;
+  elements.tempLabel.textContent = event.target.value;
+};
+
+const handleTempSlider = (event) => {
+  updateTemp(event);
+  changeBackgroundColor();
+  updateLandscape();
+}; 
 
 ///API HELPERS/////
 
