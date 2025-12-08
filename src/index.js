@@ -174,78 +174,31 @@ const handleCityInput = (event) => {
 
 const handleRealTimeTemp = async () => {
 
-  getCoordinates()
-    .then(coords => {
-      state.lat = coords.lat;
-      state.lon = coords.lon;
-      return getTemperature(coords.lat, coords.lon);
-    })
-    .then(temp => {
-      state.temp = Math.round(temp);
-      state.tempLabel = Math.round(temp).toString();
-      
-      // Update slider and label
-      elements.tempSlider.value = temp;
-      elements.tempLabel.textContent = Math.round(temp);
-      // Update background and landscape
-      changeBackgroundColor();
-      updateLandscape();
-    })
-    .catch(error => {
-      console.error('Error in realtime temperature fetch:', error);
-      alert('An error occurred. Please try again.');
-    });
-    
-  // const cityName = cityInput.value.trim();
-  // if (!cityName) {
-  //   alert('Please enter a city name');
-  //   return;
-  // }
-  // // Show loading state
-  // realTimeButton.textContent = 'Loading...';
-  // realTimeButton.disabled = true;
-  // try {
-  //   // Get coordinates for the city
-  //   const coords = await getCoordinates();
-  //   if (coords) {
-  //     // Update state with new coordinates
-  //     state.lat = coords.lat;
-  //     state.lon = coords.lon;
-  //     state.city = cityName;
-  //     // Get temperature
-  //     const temp = await getTemperature(coords.lat, coords.lon);
-
-  //     if (temp !== null) {
-  //       // Update state and UI
-  //       state.temp = Math.round(temp);
-  //       state.tempLabel = Math.round(temp).toString();
-
-  //       // Update slider and label
-  //       tempSlider.value = Math.round(temp);
-  //       tempLabel.textContent = Math.round(temp);
-
-  //       // Update background and landscape
-  //       changeBackgroundColor();
-  //       updateLandscape();
-
-  //       // Update city header
-  //       document.getElementById('city-header').textContent = cityName;
-  //     }
-  //   }
-  // } catch (error) {
-  //   console.error('Error in realtime temperature fetch:', error);
-  //   alert('An error occurred. Please try again.');
-  // } finally {
-  //   realTimeButton.textContent = 'Get Realtime Temperature';
-  //   realTimeButton.disabled = false;
-  // }
+  try {
+    const coords = await getCoordinates();
+    state.lat = parseFloat(coords.lat);
+    state.lon = parseFloat(coords.lon);
+``
+    const temp = await getTemperature(state.lat, state.lon);
+    state.temp = temp;
+    state.tempLabel = temp;
+    // Update slider and label
+    elements.tempSlider.value = Math.trunc(temp);
+    elements.tempLabel.textContent = Math.trunc(temp);
+    // Update background and landscape
+    changeBackgroundColor();
+    updateLandscape();
+  } catch (error) {
+    console.error('Error in realtime temperature fetch:', error);
+    alert('An error occurred. Please try again.');
+  }
 };
 
 const handleResetButton = () => {
   state.city = 'Seattle';
   elements.cityHeader.textContent = 'Seattle';
   elements.cityInput.value = 'Seattle';
-};  
+};
 
 const changeBackgroundColor = () => {
   const {
@@ -382,34 +335,24 @@ const handleTempSlider = (event) => {
 
 // Function to get coordinates from city name using LocationIQ
 const getCoordinates = async () => {
-  const response = await fetch(
+  const response = await axios.get('http://127.0.0.1:5000/location', {
+    params: { q: `${state.city}`} });
 
-    `http://127.0.0.1:5000/location?q=${state.city}`
-  );
-  const data = await response.json();
-
-  if (data && data.length > 0) {
-    return {
-      lat: parseFloat(data[0].lat),
-      lon: parseFloat(data[0].lon)
-    };
-  } else {
-    throw new Error('City not found');
-  }
+  const {lat, lon} = response.data[0];
+  return {
+    lat: parseFloat(lat),
+    lon: parseFloat(lon)
+  };
 };
 
 // Function to get temperature from OpenWeather API
 const getTemperature = async (lat, lon) => {
-  const response = await fetch(
-    `http://127.0.0.1:5000/weather?lat=${lat}&lon=${lon}`
-  );
-  const data = await response.json();
+  const response = await axios.get('http://127.0.0.1:5000/weather', {
+    params: { lat, lon }});
 
-  if (data && data.main && data.main.temp) {
-    return convertKtoF(data.main.temp);
-  } else {
-    throw new Error('Temperature data not available');
-  }
+    const temp = response.data.main.temp;
+    state.temp = convertKtoF(temp);
+    return convertKtoF(temp);
 };
 
 document.addEventListener('DOMContentLoaded', () => {
