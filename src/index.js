@@ -179,7 +179,7 @@ const handleRealTimeTemp = async () => {
     state.lat = parseFloat(coords.lat);
     state.lon = parseFloat(coords.lon);
 ``
-    const response = await getTemperature(state.lat, state.lon);
+    const response = await getWeather(state.lat, state.lon);
     state.temp = response.temp;
     state.tempLabel = response.temp;
     // Update slider and label
@@ -371,7 +371,7 @@ const getCoordinates = async () => {
 };
 
 // Function to get temperature from OpenWeather API
-const getTemperature = async (lat, lon) => {
+const getWeather = async (lat, lon) => {
   const response = await axios.get('http://127.0.0.1:5000/weather', {
     params: { lat, lon }});
 
