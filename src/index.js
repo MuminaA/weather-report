@@ -178,7 +178,6 @@ const handleRealTimeTemp = async () => {
     const coords = await getCoordinates();
     state.lat = parseFloat(coords.lat);
     state.lon = parseFloat(coords.lon);
-``
     const response = await getWeather(state.lat, state.lon);
     state.temp = response.temp;
     state.tempLabel = response.temp;
