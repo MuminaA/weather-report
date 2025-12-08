@@ -173,49 +173,72 @@ const handleCityInput = (event) => {
 };
 
 const handleRealTimeTemp = async () => {
-  const cityName = cityInput.value.trim();
-  if (!cityName) {
-    alert('Please enter a city name');
-    return;
-  }
-  // Show loading state
-  realTimeButton.textContent = 'Loading...';
-  realTimeButton.disabled = true;
-  try {
-    // Get coordinates for the city
-    const coords = await getCoordinates(cityName);
-    if (coords) {
-      // Update state with new coordinates
+
+  getCoordinates()
+    .then(coords => {
       state.lat = coords.lat;
       state.lon = coords.lon;
-      state.city = cityName;
-      // Get temperature
-      const temp = await getTemperature(coords.lat, coords.lon);
+      return getTemperature(coords.lat, coords.lon);
+    })
+    .then(temp => {
+      state.temp = Math.round(temp);
+      state.tempLabel = Math.round(temp).toString();
+      
+      // Update slider and label
+      elements.tempSlider.value = temp;
+      elements.tempLabel.textContent = Math.round(temp);
+      // Update background and landscape
+      changeBackgroundColor();
+      updateLandscape();
+    })
+    .catch(error => {
+      console.error('Error in realtime temperature fetch:', error);
+      alert('An error occurred. Please try again.');
+    });
+    
+  // const cityName = cityInput.value.trim();
+  // if (!cityName) {
+  //   alert('Please enter a city name');
+  //   return;
+  // }
+  // // Show loading state
+  // realTimeButton.textContent = 'Loading...';
+  // realTimeButton.disabled = true;
+  // try {
+  //   // Get coordinates for the city
+  //   const coords = await getCoordinates();
+  //   if (coords) {
+  //     // Update state with new coordinates
+  //     state.lat = coords.lat;
+  //     state.lon = coords.lon;
+  //     state.city = cityName;
+  //     // Get temperature
+  //     const temp = await getTemperature(coords.lat, coords.lon);
 
-      if (temp !== null) {
-        // Update state and UI
-        state.temp = Math.round(temp);
-        state.tempLabel = Math.round(temp).toString();
+  //     if (temp !== null) {
+  //       // Update state and UI
+  //       state.temp = Math.round(temp);
+  //       state.tempLabel = Math.round(temp).toString();
 
-        // Update slider and label
-        tempSlider.value = Math.round(temp);
-        tempLabel.textContent = Math.round(temp);
+  //       // Update slider and label
+  //       tempSlider.value = Math.round(temp);
+  //       tempLabel.textContent = Math.round(temp);
 
-        // Update background and landscape
-        changeBackgroundColor();
-        updateLandscape();
+  //       // Update background and landscape
+  //       changeBackgroundColor();
+  //       updateLandscape();
 
-        // Update city header
-        document.getElementById('city-header').textContent = cityName;
-      }
-    }
-  } catch (error) {
-    console.error('Error in realtime temperature fetch:', error);
-    alert('An error occurred. Please try again.');
-  } finally {
-    realTimeButton.textContent = 'Get Realtime Temperature';
-    realTimeButton.disabled = false;
-  }
+  //       // Update city header
+  //       document.getElementById('city-header').textContent = cityName;
+  //     }
+  //   }
+  // } catch (error) {
+  //   console.error('Error in realtime temperature fetch:', error);
+  //   alert('An error occurred. Please try again.');
+  // } finally {
+  //   realTimeButton.textContent = 'Get Realtime Temperature';
+  //   realTimeButton.disabled = false;
+  // }
 };
 
 const handleResetButton = () => {
@@ -358,9 +381,10 @@ const handleTempSlider = (event) => {
 ///API HELPERS/////
 
 // Function to get coordinates from city name using LocationIQ
-const getCoordinates = async (cityName) => {
+const getCoordinates = async () => {
   const response = await fetch(
-    `https://us1.locationiq.com/v1/search.php?key=${LOCATION_KEY}&q=${encodeURIComponent(cityName)}&format=json`
+
+    `http://127.0.0.1:5000/location?q=${state.city}`
   );
   const data = await response.json();
 
@@ -377,7 +401,7 @@ const getCoordinates = async (cityName) => {
 // Function to get temperature from OpenWeather API
 const getTemperature = async (lat, lon) => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}`
+    `http://127.0.0.1:5000/weather?lat=${lat}&lon=${lon}`
   );
   const data = await response.json();
 
