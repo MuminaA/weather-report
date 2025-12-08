@@ -60,9 +60,9 @@ const setupElements = () => {
   elements.gifFire.alt = 'A gif image of fire';
   elements.gifFire.style.display = 'block';
   elements.gifFire.style.height = '400px';
-  elements.gifFire.style.width = '35.2rem';
+  elements.gifFire.style.width = '40.2rem';
   elements.gifFire.style.position = 'absolute';
-  elements.gifFire.style.bottom = '100px';
+  elements.gifFire.style.bottom = '90px';
   elements.gifFire.style.zIndex = '0';
 
   elements.beachTemp = document.createElement('img');
@@ -70,7 +70,7 @@ const setupElements = () => {
   elements.beachTemp.alt = 'A gif image of beach landscape';
   elements.beachTemp.style.display = 'block';
   elements.beachTemp.style.height = '400px';
-  elements.beachTemp.style.width = '40.2rem';
+  elements.beachTemp.style.width = '44.2rem';
   elements.beachTemp.style.position = 'absolute';
   elements.beachTemp.style.bottom = '0px';
   elements.beachTemp.style.zIndex = '0';
@@ -80,7 +80,7 @@ const setupElements = () => {
   elements.forestTemp.alt = 'A gif image of forest landscape';
   elements.forestTemp.style.display = 'block';
   elements.forestTemp.style.height = '400px';
-  elements.forestTemp.style.width = '40.2rem';
+  elements.forestTemp.style.width = '44.2rem';
   elements.forestTemp.style.position = 'absolute';
   elements.forestTemp.style.bottom = '0px';
   elements.forestTemp.style.zIndex = '0';
@@ -90,7 +90,7 @@ const setupElements = () => {
   elements.winterTemp.alt = 'A gif image of winter landscape';
   elements.winterTemp.style.display = 'block';
   elements.winterTemp.style.height = '400px';
-  elements.winterTemp.style.width = '40.2rem';
+  elements.winterTemp.style.width = '44.2rem';
   elements.winterTemp.style.position = 'absolute';
   elements.winterTemp.style.bottom = '0px';
   elements.winterTemp.style.zIndex = '0';
@@ -105,7 +105,7 @@ const setupElements = () => {
   elements.sunnySky.style.width = '200px';
   elements.sunnySky.style.position = 'absolute';
   elements.sunnySky.style.bottom = '430px';
-  elements.sunnySky.style.left = '360px';
+  elements.sunnySky.style.left = '450px';
 
   elements.cloudySky = document.createElement('img');
   elements.cloudySky.src = 'ada-project-docs/assets/sky/cloudy.gif';
@@ -114,7 +114,7 @@ const setupElements = () => {
   elements.cloudySky.style.width = '300px';
   elements.cloudySky.style.position = 'absolute';
   elements.cloudySky.style.bottom = '350px';
-  elements.cloudySky.style.left = '260px';
+  elements.cloudySky.style.left = '390px';
 
   elements.rainySky = document.createElement('img');
   elements.rainySky.src = 'ada-project-docs/assets/sky/rainy.gif';
@@ -122,14 +122,14 @@ const setupElements = () => {
   elements.rainySky.style.height = '330px';
   elements.rainySky.style.width = '330px';
   elements.rainySky.style.position = 'absolute';
-  elements.rainySky.style.bottom = '300px';
-  elements.rainySky.style.left = '245px';
+  elements.rainySky.style.bottom = '340px';
+  elements.rainySky.style.left = '400px';
 
   elements.snowySky = document.createElement('img');
   elements.snowySky.src = 'ada-project-docs/assets/sky/snowy.gif';
   elements.snowySky.alt = 'A gif image of snow in the sky';
-  elements.snowySky.style.height = '600px';
-  elements.snowySky.style.width = '600px';
+  elements.snowySky.style.height = '700px';
+  elements.snowySky.style.width = '700px';
   elements.snowySky.style.position = 'absolute';
   elements.snowySky.style.bottom = '30px';
   elements.snowySky.style.right = '1px';
