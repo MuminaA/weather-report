@@ -391,7 +391,7 @@ const changeBackgroundColor = () => {
   } else if (state.temp >= GREEN_TEMP){
     parentElementDoll.style.backgroundColor = '#a1e387ff';
   } else {
-    parentElementDoll.style.backgroundColor = '#70eaeaff';
+    parentElementDoll.style.backgroundColor = '#9adbdbff';
   }
 };
 
