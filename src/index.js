@@ -34,6 +34,33 @@ const elements = {
   cloudySky: null,
   rainySky: null,
   snowySky: null,
+  // Clothing items
+  sunnyHat: null,
+  sunnyTop: null,
+  sunnyBottom:null,
+  sunnyShoe1: null,
+  sunnyShoe2: null,
+  winterHat: null,
+  winterTop: null,
+  winterBoot1: null,
+  winterBoot2: null,
+  rainBoot1: null,
+  rainBoot2: null,
+  rainCoat: null,
+  rainHat: null,
+  cloudyTop: null,
+  cloudyBottom: null,
+  cloudyShoe1: null,
+  cloudyShoe2: null,
+};
+
+// Drag-and-drop state
+let dragState = {
+  element: null,
+  newX: 0,
+  newY: 0,
+  startX: 0,
+  startY: 0
 };
 
 const convertKtoF = e => {
@@ -50,8 +77,27 @@ const setupElements = () => {
   elements.cityHeader = document.getElementById('city-header');
   elements.doll = document.getElementById('doll-image');
   elements.parentElementDoll = document.getElementById('doll-holder');
-  
-  elements.doll.style.zIndex = '1';
+
+  // Clothing items
+  elements.sunnyHat = document.getElementById('sunny-hat');
+  elements.sunnyTop = document.getElementById('sunny-top');
+  elements.sunnyBottom = document.getElementById('sunny-bottom');
+  elements.sunnyShoe1 = document.getElementById('sandle-1');
+  elements.sunnyShoe2 = document.getElementById('sandle-2');
+  elements.winterHat = document.getElementById('winter-hat');
+  elements.winterTop = document.getElementById('winter-top');
+  elements.winterBoot1 = document.getElementById('winter-boot-1');
+  elements.winterBoot2 = document.getElementById('winter-boot-2');
+  elements.rainBoot1 = document.getElementById('rain-boot-1');
+  elements.rainBoot2 = document.getElementById('rain-boot-2');
+  elements.rainCoat = document.getElementById('rain-top');
+  elements.rainHat = document.getElementById('rain-hat');
+  elements.cloudyTop = document.getElementById('cloudy-top');
+  elements.cloudyBottom = document.getElementById('cloudy-bottom');
+  elements.cloudyShoe1 = document.getElementById('sneaker-1');
+  elements.cloudyShoe2 = document.getElementById('sneaker-2');
+
+  elements.doll.style.zIndex = '2';
   elements.parentElementDoll.style.position = 'relative';
 
   /////////////////////////////background elements/////////////////////////////
@@ -60,7 +106,7 @@ const setupElements = () => {
   elements.gifFire.alt = 'A gif image of fire';
   elements.gifFire.style.display = 'block';
   elements.gifFire.style.height = '400px';
-  elements.gifFire.style.width = '40.2rem';
+  elements.gifFire.style.width = '43.1rem';
   elements.gifFire.style.position = 'absolute';
   elements.gifFire.style.bottom = '90px';
   elements.gifFire.style.zIndex = '0';
@@ -123,17 +169,17 @@ const setupElements = () => {
   elements.rainySky.style.width = '330px';
   elements.rainySky.style.position = 'absolute';
   elements.rainySky.style.bottom = '340px';
-  elements.rainySky.style.left = '400px';
+  elements.rainySky.style.left = '380px';
 
   elements.snowySky = document.createElement('img');
   elements.snowySky.src = 'ada-project-docs/assets/sky/snowy.gif';
   elements.snowySky.alt = 'A gif image of snow in the sky';
-  elements.snowySky.style.height = '700px';
+  elements.snowySky.style.height = '600px';
   elements.snowySky.style.width = '700px';
   elements.snowySky.style.position = 'absolute';
   elements.snowySky.style.bottom = '30px';
   elements.snowySky.style.right = '1px';
-  elements.snowySky.style.zIndex = '0';
+  elements.snowySky.style.zIndex = '1';
 
     // Initial UI sync with state
   elements.tempSlider.value = state.temp;
@@ -160,11 +206,130 @@ const registerEventHandlers = () => {
   cityInput.addEventListener('input', handleCityInput);
   resetButton.addEventListener('click', handleResetButton); 
   skyDropDownMenu.addEventListener('change', handleSkyChange);
+
+  setupDraggableClothes();
+};
+
+// Setup drag-and-drop for all clothing items with class 'draggable-clothing'
+const setupDraggableClothes = () => {
+  const draggableItems = document.querySelectorAll('.draggable-clothing');
+
+  const initialPositions = {
+    'sunny-hat': { top: '100px', left: '670px' },
+    'sunny-top': { top: '130px', left: '-250px' },
+    'sunny-bottom': { top: '400px', left: '-250px' },
+    'sandle-1': { top: '450px', left: '750px' },
+    'sandle-2': { top: '450px', left: '850px' },
+    'winter-hat': { top: '100px', left: '650px' },
+    'winter-top': { top: '110px', left: '-270px' },
+    'winter-boot-1': { top: '450px', left: '750px' },
+    'winter-boot-2': { top: '450px', left:'850px' },
+    'rain-boot-1': { top: '450px', left: '750px' },
+    'rain-boot-2': { top: '450px', left:'850px' },
+    'rain-top': { top: '110px', left: '-290px' },
+    'cloudy-top': { top: '130px', left: '-360px' },
+    'cloudy-bottom': { top: '400px', left: '-350px' },
+    'sneaker-1': { top: '450px', left: '750px' },
+    'sneaker-2': { top: '450px', left:'850px' },
+  };
+
+  draggableItems.forEach(item => {
+    // Ensure items use absolute positioning for proper dragging
+    item.style.position = 'absolute';
+
+    // Set initial position if specified
+    const itemId = item.id;
+    if (initialPositions[itemId]) {
+      item.style.top = initialPositions[itemId].top;
+      item.style.left = initialPositions[itemId].left;
+    }
+
+    item.addEventListener('mousedown', mouseDown);
+  });
+};
+
+const mouseDown = (e) => {
+  dragState.element = e.target;
+  dragState.startX = e.clientX;
+  dragState.startY = e.clientY;
+
+  document.addEventListener('mousemove', mouseMove);
+  document.addEventListener('mouseup', mouseUp);
+};
+
+const mouseMove = (e) => {
+  if (!dragState.element) return;
+
+  dragState.newX = dragState.startX - e.clientX;
+  dragState.newY = dragState.startY - e.clientY;
+
+  dragState.startX = e.clientX;
+  dragState.startY = e.clientY;
+
+  dragState.element.style.top = (dragState.element.offsetTop - dragState.newY) + 'px';
+  dragState.element.style.left = (dragState.element.offsetLeft - dragState.newX) + 'px';
+};
+
+const mouseUp = () => {
+  document.removeEventListener('mousemove', mouseMove);
+  dragState.element = null;
+};
+
+// Update clothing visibility based on weather
+const updateClothingVisibility = () => {
+  // Hide all clothing first
+  elements.sunnyHat.style.display = 'none';
+  elements.sunnyTop.style.display = 'none';
+  elements.sunnyBottom.style.display = 'none';
+  elements.sunnyShoe1.style.display = 'none';
+  elements.sunnyShoe2.style.display = 'none';
+  elements.winterHat.style.display = 'none';
+  elements.winterTop.style.display = 'none';
+  elements.winterBoot1.style.display = 'none';
+  elements.winterBoot2.style.display = 'none';
+  elements.rainBoot1.style.display = 'none';
+  elements.rainBoot2.style.display = 'none';
+  elements.rainCoat.style.display = 'none';
+  elements.rainHat.style.display = 'none';
+  elements.cloudyTop.style.display = 'none';
+  elements.cloudyBottom.style.display = 'none';
+  elements.cloudyShoe1.style.display = 'none';
+  elements.cloudyShoe2.style.display = 'none';
+
+  // Show clothing based on current sky condition
+  switch(state.sky) {
+    case 'sunny':
+      elements.sunnyHat.style.display = 'block';
+      elements.sunnyTop.style.display = 'block';
+      elements.sunnyBottom.style.display = 'block';
+      elements.sunnyShoe1.style.display = 'block';
+      elements.sunnyShoe2.style.display = 'block';
+      break;
+    case 'cloudy':
+      elements.cloudyTop.style.display = 'block';
+      elements.cloudyBottom.style.display = 'block';
+      elements.cloudyShoe1.style.display = 'block';
+      elements.cloudyShoe2.style.display = 'block';
+      break;
+    case 'rainy':
+      elements.rainBoot1.style.display = 'block';
+      elements.rainBoot2.style.display = 'block';
+      elements.rainCoat.style.display = 'block';
+      elements.rainHat.style.display = 'block';
+      break;
+    case 'snowy':
+      elements.winterHat.style.display = 'block';
+      elements.winterTop.style.display = 'block';
+      elements.winterBoot1.style.display = 'block';
+      elements.winterBoot2.style.display = 'block';
+      break;
+  }
 };
 
 const handleSkyChange = (event) => {
   state.sky = event.target.value;
   changeSky();
+  updateClothingVisibility();
 };
 
 const handleCityInput = (event) => {
@@ -385,4 +550,5 @@ document.addEventListener('DOMContentLoaded', () => {
   changeSky();
   changeBackgroundColor();
   updateLandscape();
+  updateClothingVisibility();
 });
