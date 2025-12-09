@@ -1,5 +1,7 @@
 'strict mode';
 
+const BASE_URL = 'https://ada-weather-report-proxy-server.onrender.com';
+
 const state = {
   temp: 70,
   tempLabel: '70',
@@ -508,7 +510,7 @@ const handleTempSlider = (event) => {
 
 // Function to get coordinates from city name using LocationIQ
 const getCoordinates = async () => {
-  const response = await axios.get('https://weather-report-proxy-server-5mhf.onrender.com/location', {
+  const response = await axios.get(`${BASE_URL}/location`, {
     params: { q: `${state.city}`} });
 
   const {lat, lon} = response.data[0];
@@ -520,7 +522,7 @@ const getCoordinates = async () => {
 
 // Function to get temperature from OpenWeather API
 const getWeather = async (lat, lon) => {
-  const response = await axios.get('https://weather-report-proxy-server-5mhf.onrender.com/weather', {
+  const response = await axios.get(`${BASE_URL}/weather`, {
     params: { lat, lon }});
 
   const temp = response.data.main.temp;
