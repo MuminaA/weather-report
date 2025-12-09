@@ -5,6 +5,7 @@ const state = {
   tempLabel: '70',
   city: 'Seattle',
   sky: 'sunny',
+  skyDropDownMenu: 'sunny',
   lat: 47.6038321,
   lon: -122.3300624
 };
@@ -55,7 +56,7 @@ const elements = {
 };
 
 // Drag-and-drop state
-let dragState = {
+const dragState = {
   element: null,
   newX: 0,
   newY: 0,
@@ -348,19 +349,20 @@ const handleSkyChangeRealTime = (response) => {
   if (response.weather.startsWith('Clea')) {
     state.sky = 'sunny';
     changeSky();
+    updateClothingVisibility();
   } else if (response.weather.startsWith('Clou')) {
     state.sky = 'cloudy';
     changeSky();
+    updateClothingVisibility();
   } else if (response.weather.startsWith('Rai') || response.weather.startsWith('Dri')) {
     state.sky = 'rainy';
     changeSky();
+    updateClothingVisibility();
   } else if (response.weather.startsWith('Sno')) {
     state.sky = 'snowy';
     changeSky();
-    state.sky = 'snowy';
-  } else {
-    state.sky = 'cloudy';
-}
+    updateClothingVisibility();
+  }
 };
 
 const handleResetButton = () => {
@@ -416,7 +418,6 @@ const clearSkyImages = () => {
 const changeSky = () => {
   const {
     parentElementDoll,
-    skyDropDownMenu,
     sunnySky,
     cloudySky,
     rainySky,
@@ -465,7 +466,7 @@ const clearBackgroundElements = () => {
 const updateLandscape = () => {
   const {
     parentElementDoll,
-    gifFire, 
+    gifFire,
     beachTemp,
     forestTemp,
     winterTemp,
@@ -489,7 +490,7 @@ const updateLandscape = () => {
   } else if (state.temp < GREEN_TEMP) {
     clearBackgroundElements();
     parentElementDoll.appendChild(winterTemp);
-  } 
+  }
 };
 
 const updateTemp = (event) => {

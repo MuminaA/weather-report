@@ -144,6 +144,10 @@ body {
     cursor: pointer;
 }
 
+h2 {
+    display: none;
+}
+
 #temp-label {
     margin-top: 0.5rem;
     font-size: 1.2rem;
