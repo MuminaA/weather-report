@@ -185,7 +185,6 @@ const handleRealTimeTemp = async () => {
     elements.tempSlider.value = Math.trunc(response.temp);
     elements.tempLabel.textContent = Math.trunc(response.temp);
     handleSkyChangeRealTime(response);
-
   // Update background and landscape
     changeBackgroundColor();
     updateLandscape();
