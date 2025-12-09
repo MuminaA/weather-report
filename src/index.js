@@ -277,24 +277,9 @@ const mouseUp = () => {
 
 // Update clothing visibility based on weather
 const updateClothingVisibility = () => {
-  // Hide all clothing first
-  elements.sunnyHat.style.display = 'none';
-  elements.sunnyTop.style.display = 'none';
-  elements.sunnyBottom.style.display = 'none';
-  elements.sunnyShoe1.style.display = 'none';
-  elements.sunnyShoe2.style.display = 'none';
-  elements.winterHat.style.display = 'none';
-  elements.winterTop.style.display = 'none';
-  elements.winterBoot1.style.display = 'none';
-  elements.winterBoot2.style.display = 'none';
-  elements.rainBoot1.style.display = 'none';
-  elements.rainBoot2.style.display = 'none';
-  elements.rainCoat.style.display = 'none';
-  elements.rainHat.style.display = 'none';
-  elements.cloudyTop.style.display = 'none';
-  elements.cloudyBottom.style.display = 'none';
-  elements.cloudyShoe1.style.display = 'none';
-  elements.cloudyShoe2.style.display = 'none';
+  // Hide all draggable clothing first
+  const allClothing = document.querySelectorAll('.draggable-clothing');
+  allClothing.forEach(item => item.style.display = 'none');
 
   // Show clothing based on current sky condition
   switch(state.sky) {
