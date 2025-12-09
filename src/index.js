@@ -508,7 +508,7 @@ const handleTempSlider = (event) => {
 
 // Function to get coordinates from city name using LocationIQ
 const getCoordinates = async () => {
-  const response = await axios.get('https://weather-report-proxy-server-5mhf.onrender.com//location', {
+  const response = await axios.get('http://127.0.0.1:5000//location', {
     params: { q: `${state.city}`} });
 
   const {lat, lon} = response.data[0];
@@ -520,7 +520,7 @@ const getCoordinates = async () => {
 
 // Function to get temperature from OpenWeather API
 const getWeather = async (lat, lon) => {
-  const response = await axios.get('https://weather-report-proxy-server-5mhf.onrender.com//weather', {
+  const response = await axios.get('http://127.0.0.1:5000//weather', {
     params: { lat, lon }});
 
   const temp = response.data.main.temp;
