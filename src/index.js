@@ -312,12 +312,6 @@ const updateClothingVisibility = () => {
   }
 };
 
-const handleSkyChange = (event) => {
-  state.sky = event.target.value;
-  changeSky();
-  updateClothingVisibility();
-};
-
 const handleCityInput = (event) => {
   elements.cityHeader.textContent = event.target.value;
   state.city = event.target.value;
@@ -345,23 +339,29 @@ const handleRealTimeTemp = async () => {
   }
 };
 
+const updateSkyUI = () => {
+  changeSky();
+  updateClothingVisibility();
+};
+
+const handleSkyChange = (event) => {
+  state.sky = event.target.value;
+  updateSkyUI();
+};
+
 const handleSkyChangeRealTime = (response) => {
   if (response.weather.startsWith('Clea')) {
     state.sky = 'sunny';
-    changeSky();
-    updateClothingVisibility();
+    updateSkyUI();
   } else if (response.weather.startsWith('Clou')) {
     state.sky = 'cloudy';
-    changeSky();
-    updateClothingVisibility();
+    updateSkyUI();
   } else if (response.weather.startsWith('Rai') || response.weather.startsWith('Dri')) {
     state.sky = 'rainy';
-    changeSky();
-    updateClothingVisibility();
+    updateSkyUI();
   } else if (response.weather.startsWith('Sno')) {
     state.sky = 'snowy';
-    changeSky();
-    updateClothingVisibility();
+    updateSkyUI();
   }
 };
 
