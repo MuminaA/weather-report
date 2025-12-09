@@ -141,7 +141,6 @@ const setupElements = () => {
   elements.winterTemp.style.position = 'absolute';
   elements.winterTemp.style.bottom = '0px';
   elements.winterTemp.style.zIndex = '0';
-  
 
   //////////////////////////////
 
@@ -182,13 +181,13 @@ const setupElements = () => {
   elements.snowySky.style.right = '1px';
   elements.snowySky.style.zIndex = '1';
 
-    // Initial UI sync with state
+  // Initial UI sync with state
   elements.tempSlider.value = state.temp;
   elements.tempLabel.textContent = state.tempLabel;
   elements.cityInput.value = state.city;
   elements.cityHeader.textContent = state.city;
 
-    // Make sure container is positioned for overlays
+  // Make sure container is positioned for overlays
   elements.parentElementDoll.style.position = 'relative';
 };
 
@@ -200,7 +199,7 @@ const registerEventHandlers = () => {
     cityInput,
     resetButton,
     skyDropDownMenu,
-    } = elements;
+  } = elements;
 
   tempSlider.addEventListener('input', handleTempSlider);
   realTimeButton.addEventListener('click', handleRealTimeTemp);
@@ -336,7 +335,7 @@ const handleRealTimeTemp = async () => {
     elements.tempSlider.value = Math.trunc(response.temp);
     elements.tempLabel.textContent = Math.trunc(response.temp);
     handleSkyChangeRealTime(response);
-  // Update background and landscape
+    // Update background and landscape
     changeBackgroundColor();
     updateLandscape();
   } catch (error) {
@@ -374,7 +373,7 @@ const handleResetButton = () => {
 const changeBackgroundColor = () => {
   const {
     parentElementDoll
-    } = elements;
+  } = elements;
   const {
     RED_TEMP,
     ORANGE_TEMP,
@@ -402,7 +401,7 @@ const clearSkyImages = () => {
     cloudySky,
     rainySky,
     snowySky,
-    } = elements;
+  } = elements;
 
   if (sunnySky.parentNode === parentElementDoll) {
     parentElementDoll.removeChild(sunnySky);
@@ -413,7 +412,7 @@ const clearSkyImages = () => {
   } else if (snowySky.parentNode === parentElementDoll) {
     parentElementDoll.removeChild(snowySky);
   }
-};  
+};
 
 const changeSky = () => {
   const {
@@ -422,7 +421,7 @@ const changeSky = () => {
     cloudySky,
     rainySky,
     snowySky,
-    } = elements;
+  } = elements;
 
   if (state.sky === 'sunny'){
     state.sky = 'sunny';
@@ -432,10 +431,10 @@ const changeSky = () => {
     state.sky = 'cloudy';
     clearSkyImages();
     parentElementDoll.appendChild(cloudySky);
-    } else if (state.sky === 'rainy'){
-      state.sky = 'rainy';
-      clearSkyImages();
-      parentElementDoll.appendChild(rainySky);
+  } else if (state.sky === 'rainy'){
+    state.sky = 'rainy';
+    clearSkyImages();
+    parentElementDoll.appendChild(rainySky);
   } else if (state.sky === 'snowy'){
     state.sky = 'snowy';
     clearSkyImages();
@@ -450,7 +449,7 @@ const clearBackgroundElements = () => {
     beachTemp,
     forestTemp,
     winterTemp,
-    } = elements;
+  } = elements;
 
   if (gifFire.parentNode === parentElementDoll) {
     parentElementDoll.removeChild(gifFire);
@@ -470,14 +469,14 @@ const updateLandscape = () => {
     beachTemp,
     forestTemp,
     winterTemp,
-    } = elements;
-    
+  } = elements;
+
   const {
     RED_TEMP,
     ORANGE_TEMP,
     GREEN_TEMP
   } = config;
-  
+
   if (state.temp >= RED_TEMP) {
     clearBackgroundElements();
     parentElementDoll.appendChild(gifFire);
@@ -503,7 +502,7 @@ const handleTempSlider = (event) => {
   updateTemp(event);
   changeBackgroundColor();
   updateLandscape();
-}; 
+};
 
 ///API HELPERS/////
 
@@ -524,10 +523,10 @@ const getWeather = async (lat, lon) => {
   const response = await axios.get('http://127.0.0.1:5000/weather', {
     params: { lat, lon }});
 
-    const temp = response.data.main.temp;
-    const weather = response.data.weather[0].main;
+  const temp = response.data.main.temp;
+  const weather = response.data.weather[0].main;
 
-    return {temp: convertKtoF(temp), weather};
+  return {temp: convertKtoF(temp), weather};
 };
 
 document.addEventListener('DOMContentLoaded', () => {

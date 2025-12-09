@@ -51,9 +51,7 @@ body {
 #doll-holder{
     display: flex;
     width:  43rem;
-    /* height: auto; */
     justify-content: center;
-    /* align-items: center; */
     background-color: #ddedee;
     /* border: 3px black solid; */
     gap: 2rem;
@@ -144,10 +142,6 @@ body {
     cursor: pointer;
 }
 
-h2 {
-    display: none;
-}
-
 #temp-label {
     margin-top: 0.5rem;
     font-size: 1.2rem;
@@ -183,13 +177,7 @@ h2 {
     cursor: pointer;
 }
 
-/* button {
-    border-radius: 15%;
-    background-color: #ffffff;
-} */
-
-h1{
-    /* font-family: 'cloud-font', 'Verdana'; */
+h1 {
     font-family: 'cotton-cloud', verdana;
     font-size: 4rem;
     color: #11aac9;
@@ -206,13 +194,13 @@ label {
     font-family: 'cotton-cloud', verdana;
 }
 
-.hat, .top, .bottom, .shoes {
+.draggable-clothing {
     position: absolute;
     display: none;  /* Hidden by default */
     z-index: 10;
     cursor: grab;
 }
-#sunny-hat:active, #winter-hat:active {
+.draggable-clothing:active {
     cursor: grabbing;
 }
 
